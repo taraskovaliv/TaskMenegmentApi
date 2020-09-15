@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.Column;
 import javax.persistence.*;
 import java.util.List;
 
@@ -13,18 +14,15 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "columns")
-public class Column {
+@Table(name = "boards")
+public class Board {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @javax.persistence.Column(name = "ID", unique = true, nullable = false)
-    private Integer columnId;
+    @Column(name = "ID", unique = true, nullable = false)
+    private Integer boardId;
 
     private String name;
 
-    @ManyToOne
-    private Board board;
-
-    @OneToMany(mappedBy = "column")
-    private List<Task> tasks;
+    @OneToMany(mappedBy = "board")
+    private List<com.kovaliv.models.Column> columns;
 }
