@@ -3,11 +3,13 @@ package com.kovaliv;
 import com.kovaliv.config.HibernateUtil;
 import com.kovaliv.models.Task;
 import org.hibernate.Session;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 public class HibernateUtilTest {
 
     @Test
+    @Disabled
     void addAndDeleteTask() {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
