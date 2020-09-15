@@ -1,5 +1,6 @@
 package com.kovaliv.config;
 
+import com.kovaliv.models.Column;
 import com.kovaliv.models.Task;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -29,6 +30,7 @@ public class HibernateUtil {
     }
 
     private static Configuration addAnnotatedClasses(Configuration configuration) {
+        configuration.addAnnotatedClass(Column.class);
         configuration.addAnnotatedClass(Task.class);
         return configuration;
     }

@@ -26,4 +26,7 @@ public class Task {
 
     @Column(name = "text", nullable = false)
     private String text;
+
+    @ManyToOne
+    private com.kovaliv.models.Column column;
 }
