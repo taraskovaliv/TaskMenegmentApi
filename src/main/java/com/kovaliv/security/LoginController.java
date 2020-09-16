@@ -5,7 +5,7 @@ import com.kovaliv.security.dtos.LoginDto;
 import com.kovaliv.security.dtos.LoginService;
 import lombok.extern.slf4j.Slf4j;
 
-import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
@@ -22,9 +22,14 @@ public class LoginController {
         loginService = App.context.getBean(LoginService.class);
     }
 
-    @GET
-    public Response get(LoginDto loginDto) {
-        log.info("Logged");
-        return loginService.login(loginDto) ? Response.ok().build() : Response.status(Response.Status.FORBIDDEN).build();
+    @POST
+    public Response post(LoginDto loginDto) {
+        if (loginService.login(loginDto)) {
+            log.info("Logged " + loginDto.getLogin());
+            return Response.ok().build();
+        } else {
+            log.info("NOT authorized login - " + loginDto.getLogin() + ", password - " + loginDto.getPassword());
+            return Response.status(Response.Status.UNAUTHORIZED).build();
+        }
     }
 }
