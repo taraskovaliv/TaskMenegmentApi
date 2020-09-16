@@ -14,4 +14,4 @@ RUN git clone https://github.com/taraskovaliv/TaskMenegmentApi.git
 
 EXPOSE 8080
 
-ENTRYPOINT ["java","-jar","app.jar", "server", "TaskMenegmentApi/config.yml"]
+ENTRYPOINT ["java","-jar","app.jar", "server", "/app/TaskMenegmentApi/config.yml"]
