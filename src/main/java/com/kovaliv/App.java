@@ -22,6 +22,7 @@ public class App extends Application<Configuration> {
     @Override
     public void run(Configuration c, Environment e) throws Exception {
         LOGGER.info("Registering REST resources");
-        e.jersey().register(new MainController(e.getValidator()));
+        e.jersey().register(new MainController());
+
     }
 }
