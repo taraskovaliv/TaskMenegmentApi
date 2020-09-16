@@ -17,7 +17,7 @@ import javax.ws.rs.core.Response;
 public class LoginController {
 
     @Autowired
-    private final LoginService loginService;
+    private LoginService loginService;
 
     @GET
     public Response get(LoginDto loginDto) {
