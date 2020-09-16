@@ -2,6 +2,7 @@ package com.kovaliv.security;
 
 import com.kovaliv.security.dtos.LoginDto;
 import com.kovaliv.security.dtos.LoginService;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -13,11 +14,8 @@ import javax.ws.rs.core.Response;
 @Produces(MediaType.APPLICATION_JSON)
 public class LoginController {
 
+    @Autowired
     private final LoginService loginService;
-
-    public LoginController(LoginService loginService) {
-        this.loginService = loginService;
-    }
 
     @GET
     public Response get(LoginDto loginDto) {
