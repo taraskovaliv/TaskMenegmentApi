@@ -10,6 +10,8 @@ RUN mvn package
 FROM openjdk:11
 WORKDIR /app
 COPY --from=build /app/target/TaskMenegmentApi-1.0-SNAPSHOT.jar /app/app.jar
+RUN git clone https://github.com/taraskovaliv/TaskMenegmentApi.git
+
 EXPOSE 8080
 
-ENTRYPOINT ["java","-jar","app.jar"]
+ENTRYPOINT ["java","-jar","app.jar", "server", "TaskMenegmentApi/config.yml"]
