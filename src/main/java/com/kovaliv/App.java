@@ -13,13 +13,15 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 @Slf4j
 public class App extends Application<Configuration> {
 
+    public static ApplicationContext context;
+
     public static void main(String[] args) throws Exception {
         new App().run(args);
     }
 
     @Override
     public void initialize(Bootstrap<Configuration> b) {
-        ApplicationContext context = new ClassPathXmlApplicationContext("spring_config.xml");
+        context = new ClassPathXmlApplicationContext("spring_config.xml");
     }
 
     @Override
