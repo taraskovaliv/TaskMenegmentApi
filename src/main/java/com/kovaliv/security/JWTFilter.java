@@ -1,10 +1,12 @@
 package com.kovaliv.security;
 
 import javax.servlet.*;
+import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+@WebFilter(urlPatterns = "/*")
 public class JWTFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -16,21 +18,8 @@ public class JWTFilter implements Filter {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpSession session = httpRequest.getSession(false);
 
-        boolean isLoggedIn = (session != null && session.getAttribute("user") != null);
+        boolean isLoggedIn = (session != null && session.getAttribute("token") != null);
 
-        String loginURI = httpRequest.getContextPath() + "/login";
-
-        boolean isLoginRequest = httpRequest.getRequestURI().equals(loginURI);
-
-        if (isLoggedIn && isLoginRequest) {
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/");
-            dispatcher.forward(request, response);
-        } else if (isLoggedIn || isLoginRequest) {
-            chain.doFilter(request, response);
-        } else {
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/login");
-            dispatcher.forward(request, response);
-        }
     }
 
     @Override
