@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+	  http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.0.xsd">
+
+    <changeSet author="Taras Kovaliv" id="1">
+        <createTable tableName="boards">
+            <column autoIncrement="true" name="ID" type="INT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="Taras Kovaliv" id="2">
+        <createTable tableName="columns">
+            <column autoIncrement="true" name="ID" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="NULL" name="board_ID" type="INT"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="Taras Kovaliv" id="3">
+        <createTable tableName="tasks">
+            <column autoIncrement="true" name="ID" type="INT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="header" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="text" type="VARCHAR(500)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="NULL" name="column_ID" type="INT"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="Taras Kovaliv" id="4">
+        <createIndex indexName="FKiii17rdki5rpeu7vlakklhj74" tableName="columns">
+            <column defaultValueComputed="NULL" name="board_ID"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet author="Taras Kovaliv" id="5">
+        <addForeignKeyConstraint baseColumnNames="board_ID" baseTableName="columns"
+                                 constraintName="FKiii17rdki5rpeu7vlakklhj74" deferrable="false"
+                                 initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="ID" referencedTableName="boards" validate="true"/>
+    </changeSet>
+
+</databaseChangeLog>
