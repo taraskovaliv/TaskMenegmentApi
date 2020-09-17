@@ -20,6 +20,7 @@ public class Column {
     @javax.persistence.Column(name = "ID", unique = true, nullable = false)
     private Integer columnId;
 
+    @javax.persistence.Column(nullable = false, length = 100)
     private String name;
 
     @ManyToOne

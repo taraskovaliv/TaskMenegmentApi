@@ -21,10 +21,10 @@ public class Task {
     @Column(name = "ID", unique = true, nullable = false)
     private Integer taskId;
 
-    @Column(name = "header", nullable = false)
+    @Column(name = "header", nullable = false, length = 100)
     private String header;
 
-    @Column(name = "text", nullable = false)
+    @Column(name = "text", nullable = false, length = 500)
     private String text;
 
     @ManyToOne
