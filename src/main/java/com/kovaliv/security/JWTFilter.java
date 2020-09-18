@@ -1,29 +1,44 @@
 package com.kovaliv.security;
 
-import javax.servlet.*;
-import javax.servlet.annotation.WebFilter;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import java.io.IOException;
+import liquibase.util.StringUtils;
+import lombok.extern.slf4j.Slf4j;
 
-@WebFilter(urlPatterns = "/*")
-public class JWTFilter implements Filter {
+import javax.ws.rs.container.ContainerRequestContext;
+import javax.ws.rs.container.ContainerRequestFilter;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.ext.Provider;
+
+@Slf4j
+@Provider
+public class JWTFilter implements ContainerRequestFilter {
+
+    private static final String[] loginRequiredURLs = {
+            "/"
+    };
+
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
+    public void filter(ContainerRequestContext context) {
+        log.info("Do filter auth");
 
+        String url = context.getUriInfo().getRequestUri().getPath();
+        if (isLoginRequired(url)) {
+            String token = context.getHeaders().getFirst("token");
+            if (StringUtils.isEmpty(token)) {
+                context.abortWith(Response.status(Response.Status.UNAUTHORIZED)
+                        .type(MediaType.TEXT_PLAIN_TYPE)
+                        .entity("Unauthorized")
+                        .build());
+            }
+        }
     }
 
-    @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        HttpServletRequest httpRequest = (HttpServletRequest) request;
-        HttpSession session = httpRequest.getSession(false);
-
-        boolean isLoggedIn = (session != null && session.getAttribute("token") != null);
-
-    }
-
-    @Override
-    public void destroy() {
-
+    private boolean isLoginRequired(String requestURL) {
+        for (String loginRequiredURL : loginRequiredURLs) {
+            if (requestURL.equals(loginRequiredURL)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
