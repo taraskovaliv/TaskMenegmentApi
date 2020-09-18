@@ -3,6 +3,8 @@ package com.kovaliv.config;
 import com.kovaliv.models.Board;
 import com.kovaliv.models.Column;
 import com.kovaliv.models.Task;
+import com.kovaliv.security.models.User;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
@@ -26,6 +28,12 @@ public class HibernateUtil {
         return sessionFactory;
     }
 
+    public static Session beginTransaction() {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        return session;
+    }
+
     public static void shutdown() {
         getSessionFactory().close();
     }
@@ -34,6 +42,7 @@ public class HibernateUtil {
         configuration.addAnnotatedClass(Column.class);
         configuration.addAnnotatedClass(Board.class);
         configuration.addAnnotatedClass(Task.class);
+        configuration.addAnnotatedClass(User.class);
         return configuration;
     }
 }
