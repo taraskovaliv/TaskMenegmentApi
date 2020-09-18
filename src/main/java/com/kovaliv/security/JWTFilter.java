@@ -1,10 +1,12 @@
 package com.kovaliv.security;
 
-import liquibase.util.StringUtils;
+import com.kovaliv.App;
+import com.kovaliv.security.services.TokenService;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
+import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.Provider;
@@ -13,9 +15,15 @@ import javax.ws.rs.ext.Provider;
 @Provider
 public class JWTFilter implements ContainerRequestFilter {
 
+    private final TokenService tokenService;
+
     private static final String[] loginRequiredURLs = {
             "/"
     };
+
+    public JWTFilter() {
+        tokenService = App.context.getBean(TokenService.class);
+    }
 
     @Override
     public void filter(ContainerRequestContext context) {
@@ -23,8 +31,14 @@ public class JWTFilter implements ContainerRequestFilter {
 
         String url = context.getUriInfo().getRequestUri().getPath();
         if (isLoginRequired(url)) {
-            String token = context.getHeaders().getFirst("token");
-            if (StringUtils.isEmpty(token)) {
+            String token = context.getHeaders()
+                    .getFirst(HttpHeaders.AUTHORIZATION)
+                    .substring("Bearer".length())
+                    .trim();
+
+            try {
+                tokenService.decode(token);
+            } catch (Exception e) {
                 context.abortWith(Response.status(Response.Status.UNAUTHORIZED)
                         .type(MediaType.TEXT_PLAIN_TYPE)
                         .entity("Unauthorized")

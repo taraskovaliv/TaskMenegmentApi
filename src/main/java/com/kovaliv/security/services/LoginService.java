@@ -1,4 +1,4 @@
-package com.kovaliv.security;
+package com.kovaliv.security.services;
 
 import com.kovaliv.security.dtos.LoginDto;
 import org.springframework.stereotype.Service;
