@@ -2,7 +2,6 @@ package com.kovaliv.security;
 
 import com.kovaliv.App;
 import com.kovaliv.security.dtos.LoginDto;
-import com.kovaliv.security.dtos.LoginService;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.ws.rs.POST;
@@ -26,7 +25,7 @@ public class LoginController {
     public Response post(LoginDto loginDto) {
         if (loginService.login(loginDto)) {
             log.info("Logged " + loginDto.getLogin());
-            return Response.ok().build();
+            return Response.ok().header("token", "Bearer " + loginDto.getLogin()).build();
         } else {
             log.info("NOT authorized login - " + loginDto.getLogin() + ", password - " + loginDto.getPassword());
             return Response.status(Response.Status.UNAUTHORIZED).build();
