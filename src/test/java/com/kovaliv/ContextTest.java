@@ -1,6 +1,6 @@
 package com.kovaliv;
 
-import com.kovaliv.security.dtos.LoginService;
+import com.kovaliv.security.LoginService;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
