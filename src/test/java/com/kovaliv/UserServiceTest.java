@@ -28,6 +28,7 @@ public class UserServiceTest {
     }
 
     @Test
+    @Disabled
     void getByLoginTest() {
         UserService userService = new UserService();
         userService.getUserByLogin("taras");
