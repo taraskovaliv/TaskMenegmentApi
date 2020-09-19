@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 
 @Slf4j
 @Repository
-public class UserRepo implements Repo<User> {
+public class UserRepo extends Repo<User> {
 
     public User getByLogin(String login) {
         Session session = HibernateUtil.beginTransaction();
@@ -24,29 +24,5 @@ public class UserRepo implements Repo<User> {
         session.getTransaction().commit();
 
         return user;
-    }
-
-    @Override
-    public User getById(Integer id) {
-        Session session = HibernateUtil.beginTransaction();
-
-        String hql = "FROM User WHERE userId = :id";
-        Query<User> query = session.createQuery(hql, User.class);
-        query.setParameter("id", id);
-
-        User user = query.uniqueResult();
-        log.info("Getted - " + user.toString());
-        session.getTransaction().commit();
-
-        return user;
-    }
-
-    @Override
-    public void save(User toSave) {
-        Session session = HibernateUtil.beginTransaction();
-
-        session.save(toSave);
-        session.getTransaction().commit();
-        log.info("Saved - " + toSave.toString());
     }
 }

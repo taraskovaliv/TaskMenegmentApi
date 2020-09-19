@@ -20,12 +20,16 @@ public class UserService {
     }
 
     public User getUserById(Integer id) {
-        return userRepo.getById(id);
+        return userRepo.getById(User.class, id);
     }
 
     public void save(User user) {
         user.setPassword(Base64.getEncoder().encodeToString(user.getPassword().getBytes()));
         userRepo.save(user);
+    }
+
+    public void delete(User user) {
+        userRepo.delete(user);
     }
 
     public boolean login(LoginDto loginDto) {
