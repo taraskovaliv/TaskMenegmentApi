@@ -11,8 +11,7 @@ public class HibernateUtilTest {
     @Test
     @Disabled
     void addAndDeleteTask() {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        session.beginTransaction();
+        Session session = HibernateUtil.beginTransaction();
 
         Task task = new Task();
         task.setTaskId(1);

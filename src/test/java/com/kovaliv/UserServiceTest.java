@@ -14,6 +14,7 @@ public class UserServiceTest {
     void contextLoading() {
         ApplicationContext context = new ClassPathXmlApplicationContext("spring_config.xml");
         UserService userService = context.getBean(UserService.class);
+
         assertNotNull(userService);
     }
 

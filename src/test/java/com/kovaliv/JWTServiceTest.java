@@ -14,15 +14,14 @@ public class JWTServiceTest {
     void contextLoading() {
         ApplicationContext context = new ClassPathXmlApplicationContext("spring_config.xml");
         JWTService jwtService = (JWTService) context.getBean(TokenService.class);
+
         assertNotNull(jwtService);
     }
 
     @Test
     void encodingAndDecoding() {
         String login = "login";
-
         JWTService jwtService = new JWTService();
-
         String token = jwtService.encode(login);
 
         assertEquals(login, jwtService.decode(token));
