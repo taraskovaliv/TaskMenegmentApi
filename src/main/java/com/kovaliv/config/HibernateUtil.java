@@ -4,12 +4,14 @@ import com.kovaliv.models.Board;
 import com.kovaliv.models.Column;
 import com.kovaliv.models.Task;
 import com.kovaliv.security.models.User;
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 import java.io.File;
 
+@Slf4j
 public class HibernateUtil {
     private static final SessionFactory sessionFactory = buildSessionFactory();
 
@@ -19,7 +21,7 @@ public class HibernateUtil {
             return addAnnotatedClasses(configuration).buildSessionFactory();
 
         } catch (Throwable ex) {
-            System.err.println("Initial SessionFactory creation failed." + ex);
+            log.error("Initial SessionFactory creation failed." + ex);
             throw new ExceptionInInitializerError(ex);
         }
     }
