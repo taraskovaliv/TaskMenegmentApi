@@ -42,14 +42,14 @@
     </changeSet>
 
     <changeSet author="Taras Kovaliv" id="4">
-        <createIndex indexName="FKiii17rdki5rpeu7vlakklhj74" tableName="columns">
+        <createIndex indexName="boards_columns" tableName="columns">
             <column defaultValueComputed="NULL" name="board_ID"/>
         </createIndex>
     </changeSet>
 
     <changeSet author="Taras Kovaliv" id="5">
         <addForeignKeyConstraint baseColumnNames="board_ID" baseTableName="columns"
-                                 constraintName="FKiii17rdki5rpeu7vlakklhj74" deferrable="false"
+                                 constraintName="boards_columns" deferrable="false"
                                  initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
                                  referencedColumnNames="ID" referencedTableName="boards" validate="true"/>
     </changeSet>
