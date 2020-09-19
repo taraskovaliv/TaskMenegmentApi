@@ -1,8 +1,8 @@
-# TaskMenegmentApi [![Build Status](https://travis-ci.com/github/taraskovaliv/TaskMenegmentApi.svg?branch=master)](https://travis-ci.com/github/taraskovaliv/TaskMenegmentApi)
+# TaskMenegmentApi [![Build Status](https://travis-ci.com/taraskovaliv/TaskMenegmentApi.svg?branch=master)](https://travis-ci.com/taraskovaliv/TaskMenegmentApi)
 
 ## 1. Start the project locally
 ### 1.1. Required to install
-- [x] ![MariaDB](https://mariadb.org/download/) 
+- [x] [MariaDB](https://mariadb.org/download/) 
 ### 1.2. How to run
 1. Add properties of db (url, username, password):
 - [x] To `liquibase.propeperties`
