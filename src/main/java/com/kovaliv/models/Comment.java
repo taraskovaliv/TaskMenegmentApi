@@ -1,36 +1,35 @@
 package com.kovaliv.models;
 
+import com.kovaliv.security.models.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.type.ZonedDateTimeType;
 
 import javax.persistence.Column;
 import javax.persistence.*;
-import java.util.List;
-
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "tasks")
-public class Task {
+@Table(name = "comments")
+public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", unique = true, nullable = false)
-    private Integer taskId;
+    private Integer commentId;
 
-    @Column(name = "header", nullable = false, length = 100)
-    private String header;
-
-    @Column(name = "text", nullable = false, length = 500)
+    @Column(nullable = false, length = 100)
     private String text;
 
-    @ManyToOne
-    private com.kovaliv.models.Column column;
+    private ZonedDateTimeType createdTime;
 
-    @OneToMany(mappedBy = "task")
-    private List<Comment> comment;
+    @ManyToOne
+    private Task task;
+
+    @ManyToOne
+    private User author;
 }

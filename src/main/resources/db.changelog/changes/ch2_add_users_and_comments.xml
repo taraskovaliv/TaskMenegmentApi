@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+	  http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.0.xsd">
+
+    <changeSet author="Taras Kovaliv" id="8">
+        <createTable tableName="users">
+            <column autoIncrement="true" name="ID" type="INT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="login" type="VARCHAR(50)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="password" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="Taras Kovaliv" id="9">
+        <createTable tableName="comments">
+            <column autoIncrement="true" name="ID" type="INT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column defaultValueComputed="NULL" name="createdTime" type="datetime"/>
+            <column name="text" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="NULL" name="author_ID" type="INT"/>
+            <column defaultValueComputed="NULL" name="task_ID" type="INT"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="Taras Kovaliv" id="10">
+        <createIndex indexName="tasks_comments" tableName="comments">
+            <column defaultValueComputed="NULL" name="task_ID"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet author="Taras Kovaliv" id="11">
+        <createIndex indexName="users_comments" tableName="comments">
+            <column defaultValueComputed="NULL" name="author_ID"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet author="Taras Kovaliv" id="12">
+        <addForeignKeyConstraint baseColumnNames="task_ID" baseTableName="comments"
+                                 constraintName="tasks_comments" deferrable="false"
+                                 initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="ID" referencedTableName="tasks" validate="true"/>
+    </changeSet>
+
+    <changeSet author="Taras Kovaliv" id="13">
+        <addForeignKeyConstraint baseColumnNames="author_ID" baseTableName="comments"
+                                 constraintName="users_comments" deferrable="false"
+                                 initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="ID" referencedTableName="users" validate="true"/>
+    </changeSet>
+
+</databaseChangeLog>

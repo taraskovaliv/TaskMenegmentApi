@@ -5,7 +5,7 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
 	  http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.0.xsd">
 
-    <include file="db.changelog/changes/ch1.xml"/>
-    <include file="db.changelog/changes/ch2_add_users.xml"/>
+    <include file="db.changelog/changes/ch1_add_boards_and_tasks_and_columns.xml"/>
+    <include file="db.changelog/changes/ch2_add_users_and_comments.xml"/>
     <include file="db.changelog/changes/insert.sql"/>
 </databaseChangeLog>

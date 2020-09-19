@@ -16,7 +16,7 @@
 
     <changeSet author="Taras Kovaliv" id="2">
         <createTable tableName="columns">
-            <column autoIncrement="true" name="ID" type="BIGINT">
+            <column autoIncrement="true" name="ID" type="INT">
                 <constraints primaryKey="true"/>
             </column>
             <column name="name" type="VARCHAR(100)">
@@ -48,10 +48,23 @@
     </changeSet>
 
     <changeSet author="Taras Kovaliv" id="5">
+        <createIndex indexName="columns_tasks" tableName="tasks">
+            <column defaultValueComputed="NULL" name="column_ID"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet author="Taras Kovaliv" id="6">
         <addForeignKeyConstraint baseColumnNames="board_ID" baseTableName="columns"
                                  constraintName="boards_columns" deferrable="false"
                                  initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
                                  referencedColumnNames="ID" referencedTableName="boards" validate="true"/>
+    </changeSet>
+
+    <changeSet author="Taras Kovaliv" id="7">
+        <addForeignKeyConstraint baseColumnNames="column_ID" baseTableName="tasks"
+                                 constraintName="columns_tasks" deferrable="false"
+                                 initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="ID" referencedTableName="columns" validate="true"/>
     </changeSet>
 
 </databaseChangeLog>

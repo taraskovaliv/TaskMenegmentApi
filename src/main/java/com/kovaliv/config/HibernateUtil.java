@@ -2,6 +2,7 @@ package com.kovaliv.config;
 
 import com.kovaliv.models.Board;
 import com.kovaliv.models.Column;
+import com.kovaliv.models.Comment;
 import com.kovaliv.models.Task;
 import com.kovaliv.security.models.User;
 import lombok.extern.slf4j.Slf4j;
@@ -41,6 +42,7 @@ public class HibernateUtil {
     }
 
     private static Configuration addAnnotatedClasses(Configuration configuration) {
+        configuration.addAnnotatedClass(Comment.class);
         configuration.addAnnotatedClass(Column.class);
         configuration.addAnnotatedClass(Board.class);
         configuration.addAnnotatedClass(Task.class);

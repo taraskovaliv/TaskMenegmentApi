@@ -1,8 +1,10 @@
 package com.kovaliv.security.models;
 
+import com.kovaliv.models.Comment;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
@@ -22,4 +24,7 @@ public class User {
 
     @Column(nullable = false)
     private String password;
+
+    @OneToMany(mappedBy = "author")
+    private List<Comment> comment;
 }
