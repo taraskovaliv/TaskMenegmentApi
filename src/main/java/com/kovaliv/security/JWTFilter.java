@@ -32,11 +32,9 @@ public class JWTFilter implements ContainerRequestFilter {
         String url = context.getUriInfo().getRequestUri().getPath();
         if (isLoginRequired(url)) {
             String token = context.getHeaders()
-                    .getFirst(HttpHeaders.AUTHORIZATION)
-                    .substring("Bearer".length())
-                    .trim();
-
+                    .getFirst(HttpHeaders.AUTHORIZATION);
             try {
+                token = token.substring("Bearer".length()).trim();
                 tokenService.decode(token);
             } catch (Exception e) {
                 context.abortWith(Response.status(Response.Status.UNAUTHORIZED)
