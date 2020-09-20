@@ -21,7 +21,7 @@ public class LiquibaseUtil {
         Database database = null;
         try {
             Connection connection = DriverManager.getConnection(
-                    "jdbc:mariadb://172.17.0.2:3306/taskmenegment",
+                    "jdbc:mariadb://mariadb:3306/taskmenegment",
                     "admin", "123456");
             database = DatabaseFactory.getInstance()
                     .findCorrectDatabaseImplementation(new JdbcConnection(connection));

@@ -1,0 +1,35 @@
+version: "3"
+
+services:
+  mariadb:
+    container_name: mariadb
+    image: mariadb:10.4
+    restart: on-failure
+    volumes:
+      - mariadb-data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: qwerty
+      MYSQL_DATABASE: taskmenegment
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: 123456
+    ports:
+      - "3306:3306"
+    networks:
+      - backend
+  api:
+    container_name: api
+    build:
+      context: .
+      dockerfile: local.dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mariadb
+    networks:
+      - backend
+
+networks:
+  backend:
+
+volumes:
+  mariadb-data:
