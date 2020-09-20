@@ -17,6 +17,10 @@ public class UserService {
         userRepo = new UserRepo();
     }
 
+    public UserService(UserRepo userRepo) {
+        this.userRepo = userRepo;
+    }
+
     public User getUserByLogin(String login) {
         return userRepo.getByLogin(login);
     }

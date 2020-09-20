@@ -1,15 +1,39 @@
 package com.kovaliv;
 
 import com.kovaliv.security.models.User;
+import com.kovaliv.security.repo.UserRepo;
 import com.kovaliv.security.services.UserService;
-import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.Mockito.*;
 
-public class UserServiceTest {
+class UserServiceTest {
+
+    @Mock
+    UserRepo userRepo;
+
+    UserService userService;
+
+    User user;
+
+    @BeforeEach
+    void init() {
+        MockitoAnnotations.initMocks(this);
+
+        user = new User();
+        user.setLogin("admin");
+        user.setPassword("taras");
+
+        userService = new UserService(userRepo);
+
+    }
 
     @Test
     void contextLoading() {
@@ -20,28 +44,34 @@ public class UserServiceTest {
     }
 
     @Test
-    @Disabled
     void addAndDeleteUser() {
-        User user = new User();
-        user.setLogin("admin");
-        user.setPassword("taras");
+        doNothing().when(userRepo).save(user);
+        doNothing().when(userRepo).delete(user);
 
-        UserService userService = new UserService();
         userService.save(user);
         userService.delete(user);
+
+        verify(userRepo).save(user);
+        verify(userRepo).delete(user);
     }
 
     @Test
-    @Disabled
     void getByLoginTest() {
-        UserService userService = new UserService();
-        userService.getUserByLogin("taras");
+        String login = "taras";
+
+        when(userRepo.getByLogin(login)).thenReturn(user);
+
+        User actual = userService.getUserByLogin(login);
+
+        assertEquals(user, actual);
     }
 
     @Test
-    @Disabled
     void getByIdTest() {
-        UserService userService = new UserService();
-        userService.getUserById(1);
+        when(userRepo.getById(User.class, 1)).thenReturn(user);
+
+        User actual = userService.getUserById(1);
+
+        assertEquals(user, actual);
     }
 }
