@@ -10,6 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class JWTServiceTest {
+
     @Test
     void contextLoading() {
         ApplicationContext context = new ClassPathXmlApplicationContext("spring_config.xml");
