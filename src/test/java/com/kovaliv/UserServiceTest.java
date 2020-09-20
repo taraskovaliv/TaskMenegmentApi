@@ -10,6 +10,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class UserServiceTest {
+
     @Test
     void contextLoading() {
         ApplicationContext context = new ClassPathXmlApplicationContext("spring_config.xml");

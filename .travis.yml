@@ -1,6 +1,4 @@
 language: java
-jdk:
-  - openjdk11
 sudo: required
 services:
   - docker
@@ -14,12 +12,8 @@ before_install:
   - chmod +x docker-compose
   - sudo mv docker-compose /usr/local/bin
 
-before_script:
-  - docker-compose up -d --build
-
 script:
-  - mvn test
-  - mvn clean package
+  - docker-compose up -d --build
 
 after_script:
   - docker-compose down
