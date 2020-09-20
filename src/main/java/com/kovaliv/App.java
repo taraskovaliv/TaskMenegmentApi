@@ -1,8 +1,6 @@
 package com.kovaliv;
 
 import com.kovaliv.config.LiquibaseUtil;
-import com.kovaliv.controllers.MainController;
-import com.kovaliv.security.JWTFilter;
 import com.kovaliv.security.LoginController;
 import io.dropwizard.Application;
 import io.dropwizard.Configuration;
@@ -32,8 +30,8 @@ public class App extends Application<Configuration> {
         LiquibaseUtil.update();
 
         log.info("Registering REST resources");
-        e.jersey().register(new MainController());
-        e.jersey().register(new LoginController());
-        e.jersey().register(JWTFilter.class);
+        e.jersey().packages("com.kovaliv");
+        e.jersey().register(LoginController.class);
+
     }
 }
