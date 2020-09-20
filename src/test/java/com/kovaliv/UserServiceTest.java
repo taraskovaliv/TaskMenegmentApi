@@ -5,6 +5,7 @@ import com.kovaliv.security.repo.UserRepo;
 import com.kovaliv.security.services.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.context.ApplicationContext;
@@ -19,6 +20,7 @@ class UserServiceTest {
     @Mock
     UserRepo userRepo;
 
+    @InjectMocks
     UserService userService;
 
     User user;
@@ -30,9 +32,6 @@ class UserServiceTest {
         user = new User();
         user.setLogin("admin");
         user.setPassword("taras");
-
-        userService = new UserService(userRepo);
-
     }
 
     @Test
