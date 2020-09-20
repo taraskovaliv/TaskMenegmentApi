@@ -1,9 +1,9 @@
-version: "3"
+version: "3.1"
 
 services:
   mariadb:
     container_name: mariadb
-    image: mariadb:10.4
+    image: library/mariadb:10.5.5
     restart: on-failure
     volumes:
       - mariadb-data:/var/lib/mysql
@@ -18,6 +18,7 @@ services:
       - backend
   api:
     container_name: api
+    restart: on-failure
     build:
       context: .
       dockerfile: local.dockerfile
