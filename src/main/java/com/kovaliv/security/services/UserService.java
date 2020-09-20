@@ -3,10 +3,12 @@ package com.kovaliv.security.services;
 import com.kovaliv.security.dtos.LoginDto;
 import com.kovaliv.security.models.User;
 import com.kovaliv.security.repo.UserRepo;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.Base64;
 
+@Slf4j
 @Service
 public class UserService {
     private final UserRepo userRepo;
@@ -39,5 +41,19 @@ public class UserService {
         }
         String decodedPassword = new String(Base64.getDecoder().decode(user.getPassword()));
         return decodedPassword.equals(loginDto.getPassword());
+    }
+
+    public boolean signup(LoginDto loginDto) {
+        if (getUserByLogin(loginDto.getLogin()) != null) {
+            return false;
+        }
+
+        User user = new User();
+        user.setLogin(loginDto.getLogin());
+        user.setPassword(Base64.getEncoder().encodeToString(loginDto.getPassword().getBytes()));
+        save(user);
+
+        log.info("Sign up - " + user.toString());
+        return true;
     }
 }

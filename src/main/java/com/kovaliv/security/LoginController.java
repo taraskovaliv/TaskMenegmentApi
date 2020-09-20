@@ -14,7 +14,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 @Slf4j
-@Path("/login")
 @Produces(MediaType.APPLICATION_JSON)
 public class LoginController {
 
@@ -27,7 +26,8 @@ public class LoginController {
     }
 
     @POST
-    public Response post(LoginDto loginDto) {
+    @Path("/login")
+    public Response signIn(LoginDto loginDto) {
         if (userService.login(loginDto)) {
             log.info("Logged " + loginDto.getLogin());
             return Response.ok()
@@ -37,5 +37,14 @@ public class LoginController {
             log.info("NOT authorized login - " + loginDto.getLogin() + ", password - " + loginDto.getPassword());
             return Response.status(Response.Status.UNAUTHORIZED).build();
         }
+    }
+
+    @POST
+    @Path("/signup")
+    public Response singIn(LoginDto loginDto) {
+        if (userService.signup(loginDto)) {
+            return signIn(loginDto);
+        }
+        return Response.status(Response.Status.BAD_REQUEST).build();
     }
 }
