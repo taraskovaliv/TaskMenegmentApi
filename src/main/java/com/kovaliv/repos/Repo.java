@@ -13,7 +13,6 @@ public class Repo<T> {
 
         T t = session.load(clazz, id);
         Hibernate.initialize(t);
-        session.getTransaction().commit();
         log.info("Getted - " + t.toString());
 
         return t;
