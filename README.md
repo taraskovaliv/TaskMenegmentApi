@@ -10,4 +10,7 @@
 - [x] To `hibernate.cfg.xml`
 2. Run `local.dockerfile`
 ### Way 2
-1. Update `docker-compose` using command: `sudo docker-compose up -d`
+1. Update `docker-compose` using command: 
+```
+sudo docker-compose up -d
+```
