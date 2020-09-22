@@ -144,6 +144,22 @@
                 <artifactId>maven-dependency-plugin</artifactId>
                 <version>3.1.2</version>
             </plugin>
+            <plugin>
+                <groupId>io.swagger</groupId>
+                <artifactId>swagger-codegen-maven-plugin</artifactId>
+                <version>2.4.15</version>
+                <configuration>
+                    <inputSpec>${project.basedir}/src/main/resources/swagger.yaml</inputSpec>
+                    <output>${project.basedir}/../swagger</output>
+                    <apiPackage>com.kovaliv.api</apiPackage>
+                    <modelPackage>com.kovaliv.api.model</modelPackage>
+
+                    <configOptions>
+                        <sourceFolder>src/main/java</sourceFolder>
+                    </configOptions>
+                    <language>jaxrs</language>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
