@@ -2,6 +2,8 @@ package com.kovaliv.services;
 
 import com.kovaliv.repos.Repo;
 
+import java.util.List;
+
 public class Service<T> {
     protected Repo<T> repo;
 
@@ -19,5 +21,9 @@ public class Service<T> {
 
     public T getById(Class<T> clazz, Integer id) {
         return repo.getById(clazz, id);
+    }
+
+    public List<T> getAll(Class<T> clazz) {
+        return repo.getAll(clazz);
     }
 }

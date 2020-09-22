@@ -4,6 +4,9 @@ import com.kovaliv.config.HibernateUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
+import org.hibernate.query.Query;
+
+import java.util.List;
 
 @Slf4j
 public class Repo<T> {
@@ -32,5 +35,14 @@ public class Repo<T> {
         session.delete(toDelete);
         session.getTransaction().commit();
         log.info("Deleted - " + toDelete.toString());
+    }
+
+    public List<T> getAll(Class<T> clazz) {
+        Session session = HibernateUtil.beginTransaction();
+
+        Query<T> t = session.createQuery("from " + clazz.getName(), clazz);
+        log.info("Getted - " + t.getResultList().toString());
+
+        return t.getResultList();
     }
 }

@@ -22,6 +22,12 @@ public class TaskController {
         return Response.ok(taskService.getById(Task.class, id)).build();
     }
 
+    @GET
+    @Path("/all")
+    public Response getTasks() {
+        return Response.ok(taskService.getAll(Task.class)).build();
+    }
+
     @POST
     public Response addTask(Task task) {
         taskService.save(task);
