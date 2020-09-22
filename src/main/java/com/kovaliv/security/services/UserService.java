@@ -12,32 +12,24 @@ import java.util.Base64;
 @Slf4j
 @Service
 @AllArgsConstructor
-public class UserService {
+public class UserService extends com.kovaliv.services.Service<User> {
     private final UserRepo userRepo;
 
     public UserService() {
         userRepo = new UserRepo();
     }
 
-    public User getUserByLogin(String login) {
+    public User getByLogin(String login) {
         return userRepo.getByLogin(login);
-    }
-
-    public User getUserById(Integer id) {
-        return userRepo.getById(User.class, id);
     }
 
     public void save(User user) {
         user.setPassword(Base64.getEncoder().encodeToString(user.getPassword().getBytes()));
-        userRepo.save(user);
-    }
-
-    public void delete(User user) {
-        userRepo.delete(user);
+        repo.save(user);
     }
 
     public boolean login(LoginDto loginDto) {
-        User user = getUserByLogin(loginDto.getLogin());
+        User user = getByLogin(loginDto.getLogin());
         if (user == null) {
             return false;
         }
@@ -46,7 +38,7 @@ public class UserService {
     }
 
     public boolean signup(LoginDto loginDto) {
-        if (getUserByLogin(loginDto.getLogin()) != null) {
+        if (getByLogin(loginDto.getLogin()) != null) {
             return false;
         }
 
