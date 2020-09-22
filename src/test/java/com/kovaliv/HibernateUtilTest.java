@@ -5,13 +5,15 @@ import com.kovaliv.models.Task;
 import org.hibernate.Session;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.springframework.transaction.annotation.Transactional;
 
 public class HibernateUtilTest {
 
     @Test
     @Disabled
+    @Transactional
     void addAndDeleteTask() {
-        Session session = HibernateUtil.beginTransaction();
+        Session session = HibernateUtil.getSession();
 
         Task task = new Task();
         task.setTaskId(1);
@@ -19,10 +21,6 @@ public class HibernateUtilTest {
         task.setHeader("Header");
 
         session.save(task);
-        session.getTransaction().commit();
-
-        session.beginTransaction();
         session.remove(task);
-        session.getTransaction().commit();
     }
 }

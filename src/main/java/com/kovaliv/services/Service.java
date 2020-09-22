@@ -1,14 +1,16 @@
 package com.kovaliv.services;
 
 import com.kovaliv.repos.Repo;
+import lombok.Setter;
 
 import java.util.List;
 
+@Setter
 public class Service<T> {
     protected Repo<T> repo;
 
     public Service() {
-        repo = new Repo<>();
+        repo = new Repo<T>();
     }
 
     public void save(T t) {

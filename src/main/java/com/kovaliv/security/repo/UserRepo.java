@@ -16,7 +16,7 @@ import javax.transaction.Transactional;
 public class UserRepo extends Repo<User> {
 
     public User getByLogin(String login) {
-        Session session = HibernateUtil.beginTransaction();
+        Session session = HibernateUtil.getSession();
 
         String hql = "CALL p_user(:login)";
         NativeQuery<User> query = session.createNativeQuery(hql, User.class);

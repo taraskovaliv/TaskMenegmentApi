@@ -5,7 +5,6 @@ import com.kovaliv.security.models.User;
 import com.kovaliv.security.repo.UserRepo;
 import com.kovaliv.security.services.UserService;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -37,6 +36,8 @@ class UserServiceTest {
         user = new User();
         user.setLogin("admin");
         user.setPassword("taras");
+
+        userService.setRepo(repo);
     }
 
     @Test
@@ -48,7 +49,6 @@ class UserServiceTest {
     }
 
     @Test
-    @Disabled
     void addAndDeleteUser() {
         doNothing().when(repo).save(user);
         doNothing().when(repo).delete(user);
@@ -72,7 +72,6 @@ class UserServiceTest {
     }
 
     @Test
-    @Disabled
     void getByIdTest() {
         when(repo.getById(User.class, 1)).thenReturn(user);
 

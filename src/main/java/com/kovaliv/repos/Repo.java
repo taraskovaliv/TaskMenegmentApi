@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -12,7 +13,7 @@ import java.util.List;
 public class Repo<T> {
 
     public T getById(Class<T> clazz, Integer id) {
-        Session session = HibernateUtil.beginTransaction();
+        Session session = HibernateUtil.getSession();
 
         T t = session.load(clazz, id);
         Hibernate.initialize(t);
@@ -21,24 +22,24 @@ public class Repo<T> {
         return t;
     }
 
+    @Transactional
     public void save(T toSave) {
-        Session session = HibernateUtil.beginTransaction();
+        Session session = HibernateUtil.getSession();
 
         session.save(toSave);
-        session.getTransaction().commit();
         log.info("Saved - " + toSave.toString());
     }
 
+    @Transactional
     public void delete(T toDelete) {
-        Session session = HibernateUtil.beginTransaction();
+        Session session = HibernateUtil.getSession();
 
         session.delete(toDelete);
-        session.getTransaction().commit();
         log.info("Deleted - " + toDelete.toString());
     }
 
     public List<T> getAll(Class<T> clazz) {
-        Session session = HibernateUtil.beginTransaction();
+        Session session = HibernateUtil.getSession();
 
         Query<T> t = session.createQuery("from " + clazz.getName(), clazz);
         log.info("Getted - " + t.getResultList().toString());

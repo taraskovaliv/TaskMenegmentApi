@@ -20,25 +20,18 @@ public class HibernateUtil {
         try {
             Configuration configuration = new Configuration().configure(new File("src/main/resources/hibernate.cfg.xml"));
             return addAnnotatedClasses(configuration).buildSessionFactory();
-
         } catch (Throwable ex) {
             log.error("Initial SessionFactory creation failed." + ex);
             throw new ExceptionInInitializerError(ex);
         }
     }
 
-    public static SessionFactory getSessionFactory() {
-        return sessionFactory;
-    }
-
-    public static Session beginTransaction() {
-        Session session = sessionFactory.openSession();
-        session.beginTransaction();
-        return session;
-    }
-
     public static void shutdown() {
-        getSessionFactory().close();
+        getSession().close();
+    }
+
+    public static Session getSession() {
+        return sessionFactory.openSession();
     }
 
     private static Configuration addAnnotatedClasses(Configuration configuration) {
