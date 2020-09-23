@@ -1,7 +1,7 @@
 package com.kovaliv.controllers;
 
 import com.kovaliv.models.Task;
-import com.kovaliv.services.Service;
+import com.kovaliv.services.TaskService;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -11,10 +11,10 @@ import javax.ws.rs.core.Response;
 @Produces(MediaType.APPLICATION_JSON)
 public class TaskController {
 
-    private final Service<Task> taskService;
+    private final TaskService taskService;
 
     public TaskController() {
-        taskService = new Service<>();
+        taskService = new TaskService();
     }
 
     @GET
@@ -31,6 +31,18 @@ public class TaskController {
     @POST
     public Response addTask(Task task) {
         taskService.save(task);
+        return Response.ok().build();
+    }
+
+    @PATCH
+    public Response moveTaskToColumn(Integer taskId, Integer columnId) {
+        taskService.moveTaskToColumn(taskId, columnId);
+        return Response.ok().build();
+    }
+
+    @PUT
+    public Response updateTask(Task task) {
+        taskService.update(task);
         return Response.ok().build();
     }
 
