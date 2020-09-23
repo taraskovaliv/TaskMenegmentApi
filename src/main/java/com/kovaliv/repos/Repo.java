@@ -12,9 +12,9 @@ import java.util.List;
 @Slf4j
 public class Repo<T> {
 
-    public T getById(Class<T> clazz, Integer id) {
-        Session session = HibernateUtil.getSession();
+    private final Session session = HibernateUtil.getSession();
 
+    public T getById(Class<T> clazz, Integer id) {
         T t = session.load(clazz, id);
         Hibernate.initialize(t);
         log.info("Getted - " + t.toString());
@@ -24,23 +24,23 @@ public class Repo<T> {
 
     @Transactional
     public void save(T toSave) {
-        Session session = HibernateUtil.getSession();
-
         session.save(toSave);
         log.info("Saved - " + toSave.toString());
     }
 
     @Transactional
     public void delete(T toDelete) {
-        Session session = HibernateUtil.getSession();
-
         session.delete(toDelete);
         log.info("Deleted - " + toDelete.toString());
     }
 
-    public List<T> getAll(Class<T> clazz) {
-        Session session = HibernateUtil.getSession();
+    @Transactional
+    public void update(T toUpdate) {
+        session.update(toUpdate);
+        log.info("Updated - " + toUpdate.toString());
+    }
 
+    public List<T> getAll(Class<T> clazz) {
         Query<T> t = session.createQuery("from " + clazz.getName(), clazz);
         log.info("Getted - " + t.getResultList().toString());
 

@@ -21,6 +21,10 @@ public class Service<T> {
         repo.delete(t);
     }
 
+    public void update(T t) {
+        repo.update(t);
+    }
+
     public T getById(Class<T> clazz, Integer id) {
         return repo.getById(clazz, id);
     }
