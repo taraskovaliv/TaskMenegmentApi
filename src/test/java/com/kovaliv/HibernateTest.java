@@ -1,19 +1,28 @@
 package com.kovaliv;
 
-import com.kovaliv.config.HibernateUtil;
 import com.kovaliv.models.Task;
+import io.dropwizard.testing.junit5.DropwizardExtensionsSupport;
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
-public class HibernateUtilTest {
+@Slf4j
+@ExtendWith(DropwizardExtensionsSupport.class)
+public class HibernateTest {
+
+    @Autowired
+    private SessionFactory sessionFactory;
 
     @Test
     @Disabled
     @Transactional
     void addAndDeleteTask() {
-        Session session = HibernateUtil.getSession();
+        Session session = sessionFactory.openSession();
 
         Task task = new Task();
         task.setTaskId(1);

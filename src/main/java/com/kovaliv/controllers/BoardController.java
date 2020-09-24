@@ -17,7 +17,8 @@ public class BoardController {
     }
 
     @GET
-    public Response getBoard(Integer id) {
+    @Path("/{id}")
+    public Response getBoard(@PathParam("id") Integer id) {
         return Response.ok(boardService.getById(Board.class, id)).build();
     }
 

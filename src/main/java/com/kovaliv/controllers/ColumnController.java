@@ -17,7 +17,8 @@ public class ColumnController {
     }
 
     @GET
-    public Response getColumn(Integer id) {
+    @Path("/{id}")
+    public Response getColumn(@PathParam("id") Integer id) {
         return Response.ok(columnService.getById(Column.class, id)).build();
     }
 

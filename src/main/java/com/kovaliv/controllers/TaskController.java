@@ -2,6 +2,7 @@ package com.kovaliv.controllers;
 
 import com.kovaliv.models.Task;
 import com.kovaliv.services.TaskService;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -11,14 +12,12 @@ import javax.ws.rs.core.Response;
 @Produces(MediaType.APPLICATION_JSON)
 public class TaskController {
 
-    private final TaskService taskService;
-
-    public TaskController() {
-        taskService = new TaskService();
-    }
+    @Autowired
+    private TaskService taskService;
 
     @GET
-    public Response getTask(Integer id) {
+    @Path("/{id}")
+    public Response getTask(@PathParam("id") Integer id) {
         return Response.ok(taskService.getById(Task.class, id)).build();
     }
 
@@ -35,7 +34,8 @@ public class TaskController {
     }
 
     @PATCH
-    public Response moveTaskToColumn(Integer taskId, Integer columnId) {
+    public Response moveTaskToColumn(@QueryParam("taskId") Integer taskId,
+                                     @QueryParam("columnId") Integer columnId) {
         taskService.moveTaskToColumn(taskId, columnId);
         return Response.ok().build();
     }
