@@ -12,5 +12,5 @@
 ### Way 2
 1. Update `docker-compose` using command: 
 ```
-sudo docker-compose up -d
+docker-compose up -d
 ```
