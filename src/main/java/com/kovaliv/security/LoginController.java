@@ -1,10 +1,10 @@
 package com.kovaliv.security;
 
-import com.kovaliv.App;
 import com.kovaliv.security.dtos.LoginDto;
 import com.kovaliv.security.services.TokenService;
 import com.kovaliv.security.services.UserService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -14,20 +14,27 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 @Slf4j
+@Path("/login")
 @Produces(MediaType.APPLICATION_JSON)
 public class LoginController {
 
-    private final TokenService tokenService;
-    private final UserService userService;
+    private TokenService tokenService;
+    private UserService userService;
 
-    public LoginController() {
-        userService = App.context.getBean(UserService.class);
-        tokenService = App.context.getBean(TokenService.class);
+    @Autowired
+    public void setTokenService(TokenService tokenService) {
+        this.tokenService = tokenService;
+    }
+
+    @Autowired
+    public void setUserService(UserService userService) {
+        this.userService = userService;
     }
 
     @POST
-    @Path("/login")
+    @Path("/signin")
     public Response signIn(LoginDto loginDto) {
+        log.info("login");
         if (userService.login(loginDto)) {
             log.info("Logged " + loginDto.getLogin());
             return Response.ok()
@@ -41,7 +48,7 @@ public class LoginController {
 
     @POST
     @Path("/signup")
-    public Response singIn(LoginDto loginDto) {
+    public Response singUp(LoginDto loginDto) {
         if (userService.signup(loginDto)) {
             return signIn(loginDto);
         }

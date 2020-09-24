@@ -1,10 +1,11 @@
 package com.kovaliv.repos;
 
-import com.kovaliv.config.HibernateUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -12,7 +13,13 @@ import java.util.List;
 @Slf4j
 public class Repo<T> {
 
-    private final Session session = HibernateUtil.getSession();
+    protected Session session;
+    @Autowired
+    private SessionFactory sessionFactory;
+
+    public Repo() {
+        sessionFactory.openSession();
+    }
 
     public T getById(Class<T> clazz, Integer id) {
         T t = session.load(clazz, id);
@@ -46,4 +53,6 @@ public class Repo<T> {
 
         return t.getResultList();
     }
+
+
 }

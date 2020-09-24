@@ -1,8 +1,8 @@
 package com.kovaliv.security;
 
-import com.kovaliv.App;
 import com.kovaliv.security.services.TokenService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
@@ -15,14 +15,15 @@ import javax.ws.rs.ext.Provider;
 @Provider
 public class JWTFilter implements ContainerRequestFilter {
 
-    private final TokenService tokenService;
+    private TokenService tokenService;
 
     private static final String[] loginRequiredURLs = {
             "/"
     };
 
-    public JWTFilter() {
-        tokenService = App.context.getBean(TokenService.class);
+    @Autowired
+    public void setTokenService(TokenService tokenService) {
+        this.tokenService = tokenService;
     }
 
     @Override
