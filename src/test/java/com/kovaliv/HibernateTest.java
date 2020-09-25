@@ -4,7 +4,7 @@ import com.kovaliv.models.Task;
 import io.dropwizard.testing.junit5.DropwizardExtensionsSupport;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
+import org.hibernate.internal.SessionFactoryImpl;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class HibernateTest {
 
     @Autowired
-    private SessionFactory sessionFactory;
+    private SessionFactoryImpl sessionFactory;
 
     @Test
     @Disabled

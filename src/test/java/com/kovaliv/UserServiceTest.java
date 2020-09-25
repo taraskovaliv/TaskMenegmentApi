@@ -38,8 +38,6 @@ class UserServiceTest {
         user = new User();
         user.setLogin("admin");
         user.setPassword("taras");
-
-        userService.setRepo(repo);
     }
 
     @Test

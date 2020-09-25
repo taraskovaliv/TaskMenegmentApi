@@ -7,7 +7,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import javax.ws.rs.Path;
+import java.util.Arrays;
 
 @Slf4j
 public class ContextTest {
@@ -17,6 +18,11 @@ public class ContextTest {
     void testContext() {
         ApplicationContext context = new ClassPathXmlApplicationContext("spring_config.xml");
         LocalSessionFactoryBean sessionFactoryBean = context.getBean(LocalSessionFactoryBean.class);
-        assertNotNull(sessionFactoryBean.getObject());
+        log.info(context.getBean("sessionFactory").getClass().toString());
+        log.info(Arrays.toString(context.getBeanDefinitionNames()));
+
+        for (Object resource : context.getBeansWithAnnotation(Path.class).values()) {
+            log.info(resource.getClass().toString());
+        }
     }
 }
