@@ -1,17 +1,16 @@
 package com.kovaliv.services;
 
 import com.kovaliv.repos.Repo;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
 
 @Setter
+@RequiredArgsConstructor
+@org.springframework.stereotype.Service
 public class Service<T> {
     protected Repo<T> repo;
-
-    public Service() {
-        repo = new Repo<T>();
-    }
 
     public void save(T t) {
         repo.save(t);

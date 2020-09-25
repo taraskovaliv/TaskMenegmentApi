@@ -3,8 +3,9 @@ package com.kovaliv.security;
 import com.kovaliv.security.dtos.LoginDto;
 import com.kovaliv.security.services.TokenService;
 import com.kovaliv.security.services.UserService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -14,22 +15,13 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 @Slf4j
+@Component
 @Path("/login")
+@RequiredArgsConstructor
 @Produces(MediaType.APPLICATION_JSON)
 public class LoginController {
-
-    private TokenService tokenService;
-    private UserService userService;
-
-    @Autowired
-    public void setTokenService(TokenService tokenService) {
-        this.tokenService = tokenService;
-    }
-
-    @Autowired
-    public void setUserService(UserService userService) {
-        this.userService = userService;
-    }
+    private final TokenService tokenService;
+    private final UserService userService;
 
     @POST
     @Path("/signin")

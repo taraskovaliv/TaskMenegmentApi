@@ -2,18 +2,19 @@ package com.kovaliv.controllers;
 
 import com.kovaliv.models.Task;
 import com.kovaliv.services.TaskService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+@Component
 @Path("/task")
+@RequiredArgsConstructor
 @Produces(MediaType.APPLICATION_JSON)
 public class TaskController {
-
-    @Autowired
-    private TaskService taskService;
+    private final TaskService taskService;
 
     @GET
     @Path("/{id}")

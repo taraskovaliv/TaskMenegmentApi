@@ -3,22 +3,26 @@ package com.kovaliv.repos;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
+import org.hibernate.internal.SessionFactoryImpl;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Slf4j
+@Component
 public class Repo<T> {
 
-    protected Session session;
-    @Autowired
-    private SessionFactory sessionFactory;
+    protected final SessionFactoryImpl sessionFactory;
 
-    public Repo() {
-        sessionFactory.openSession();
+    protected Session session;
+
+    @Autowired
+    public Repo(SessionFactoryImpl sessionFactory) {
+        this.sessionFactory = sessionFactory;
+        session = sessionFactory.openSession();
     }
 
     public T getById(Class<T> clazz, Integer id) {
@@ -53,6 +57,4 @@ public class Repo<T> {
 
         return t.getResultList();
     }
-
-
 }

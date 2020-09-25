@@ -1,8 +1,9 @@
 package com.kovaliv.security;
 
 import com.kovaliv.security.services.TokenService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
@@ -13,18 +14,14 @@ import javax.ws.rs.ext.Provider;
 
 @Slf4j
 @Provider
+@Component
+@RequiredArgsConstructor
 public class JWTFilter implements ContainerRequestFilter {
-
-    private TokenService tokenService;
+    private final TokenService tokenService;
 
     private static final String[] loginRequiredURLs = {
             "/"
     };
-
-    @Autowired
-    public void setTokenService(TokenService tokenService) {
-        this.tokenService = tokenService;
-    }
 
     @Override
     public void filter(ContainerRequestContext context) {
@@ -38,6 +35,7 @@ public class JWTFilter implements ContainerRequestFilter {
                 token = token.substring("Bearer".length()).trim();
                 tokenService.decode(token);
             } catch (Exception e) {
+                e.printStackTrace();
                 context.abortWith(Response.status(Response.Status.UNAUTHORIZED)
                         .type(MediaType.TEXT_PLAIN_TYPE)
                         .entity("Unauthorized")

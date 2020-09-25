@@ -5,8 +5,10 @@ import io.dropwizard.Application;
 import io.dropwizard.Configuration;
 import io.dropwizard.setup.Environment;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import javax.ws.rs.Path;
 
 @Slf4j
 public class App extends Application<Configuration> {
@@ -20,14 +22,11 @@ public class App extends Application<Configuration> {
         log.info("Updating liquibase");
         LiquibaseUtil.update();
 
-        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
-        context.setParent(new ClassPathXmlApplicationContext("spring_config.xml"));
-        context.getBeanFactory().registerSingleton("appConfiguration", c);
-        context.registerShutdownHook();
-        context.refresh();
+        ApplicationContext context = new ClassPathXmlApplicationContext("spring_config.xml");
 
-        log.info("Registering REST resources");
-        e.jersey().packages("com.kovaliv");
-
+        log.info("Adding resources");
+        for (Object resource : context.getBeansWithAnnotation(Path.class).values()) {
+            e.jersey().register(resource);
+        }
     }
 }

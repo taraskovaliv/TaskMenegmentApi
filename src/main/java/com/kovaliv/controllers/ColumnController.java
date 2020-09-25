@@ -2,19 +2,19 @@ package com.kovaliv.controllers;
 
 import com.kovaliv.models.Column;
 import com.kovaliv.services.Service;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+@Component
 @Path("/column")
+@RequiredArgsConstructor
 @Produces(MediaType.APPLICATION_JSON)
 public class ColumnController {
     private final Service<Column> columnService;
-
-    public ColumnController() {
-        columnService = new Service<>();
-    }
 
     @GET
     @Path("/{id}")
