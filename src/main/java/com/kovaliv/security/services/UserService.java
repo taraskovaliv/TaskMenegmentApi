@@ -1,19 +1,25 @@
 package com.kovaliv.security.services;
 
+import com.kovaliv.repos.Repo;
 import com.kovaliv.security.dtos.LoginDto;
 import com.kovaliv.security.models.User;
 import com.kovaliv.security.repo.UserRepo;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Base64;
 
 @Slf4j
 @Service
-@RequiredArgsConstructor
 public class UserService extends com.kovaliv.services.Service<User> {
     private final UserRepo userRepo;
+
+    @Autowired
+    public UserService(UserRepo userRepo, Repo<User> repo) {
+        super(repo);
+        this.userRepo = userRepo;
+    }
 
     public User getByLogin(String login) {
         return userRepo.getByLogin(login);

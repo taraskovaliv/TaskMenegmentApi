@@ -10,7 +10,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @org.springframework.stereotype.Service
 public class Service<T> {
-    protected Repo<T> repo;
+    protected final Repo<T> repo;
 
     public void save(T t) {
         repo.save(t);
