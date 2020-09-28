@@ -5,6 +5,7 @@ import com.kovaliv.security.models.User;
 import com.kovaliv.security.repo.UserRepo;
 import com.kovaliv.security.services.UserService;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -32,6 +33,7 @@ class UserServiceTest {
     User user;
 
 
+    @BeforeEach
     void init() {
         MockitoAnnotations.initMocks(this);
 
