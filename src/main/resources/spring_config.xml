@@ -41,6 +41,12 @@
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
+    <bean id="liquibase" class="liquibase.integration.spring.SpringLiquibase">
+        <property name="testRollbackOnUpdate" value="true"/>
+        <property name="dataSource" ref="dataSource"/>
+        <property name="changeLog" value="db.changelog/master.xml"/>
+    </bean>
+
     <context:annotation-config/>
     <context:component-scan base-package="com.kovaliv"/>
 </beans>
