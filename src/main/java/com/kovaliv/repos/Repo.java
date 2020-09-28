@@ -34,9 +34,10 @@ public class Repo<T> {
     }
 
     @Transactional
-    public void save(T toSave) {
-        session.save(toSave);
+    public T save(T toSave) {
+        T t = (T) session.save(toSave);
         log.info("Saved - " + toSave.toString());
+        return t;
     }
 
     @Transactional

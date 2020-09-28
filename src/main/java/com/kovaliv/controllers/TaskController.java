@@ -30,8 +30,7 @@ public class TaskController {
 
     @POST
     public Response addTask(Task task) {
-        taskService.save(task);
-        return Response.ok().build();
+        return Response.ok(taskService.save(task)).build();
     }
 
     @PATCH

@@ -30,8 +30,7 @@ public class BoardController {
 
     @POST
     public Response addBoard(Board board) {
-        boardService.save(board);
-        return Response.ok().build();
+        return Response.ok(boardService.save(board)).build();
     }
 
     @PUT

@@ -30,8 +30,7 @@ public class ColumnController {
 
     @POST
     public Response addColumn(Column column) {
-        columnService.save(column);
-        return Response.ok().build();
+        return Response.ok(columnService.save(column)).build();
     }
 
     @PUT

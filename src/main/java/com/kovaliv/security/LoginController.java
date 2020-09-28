@@ -29,7 +29,7 @@ public class LoginController {
         log.info("login");
         if (userService.login(loginDto)) {
             log.info("Logged " + loginDto.getLogin());
-            return Response.ok()
+            return Response.ok(userService.getByLogin(loginDto.getLogin()))
                     .header(HttpHeaders.AUTHORIZATION, "Bearer " + tokenService.encode(loginDto.getLogin()))
                     .build();
         } else {

@@ -25,9 +25,9 @@ public class UserService extends com.kovaliv.services.Service<User> {
         return userRepo.getByLogin(login);
     }
 
-    public void save(User user) {
+    public User save(User user) {
         user.setPassword(Base64.getEncoder().encodeToString(user.getPassword().getBytes()));
-        repo.save(user);
+        return repo.save(user);
     }
 
     public boolean login(LoginDto loginDto) {

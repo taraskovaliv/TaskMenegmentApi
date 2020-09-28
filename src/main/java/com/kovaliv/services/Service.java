@@ -12,8 +12,8 @@ import java.util.List;
 public class Service<T> {
     protected final Repo<T> repo;
 
-    public void save(T t) {
-        repo.save(t);
+    public T save(T t) {
+        return repo.save(t);
     }
 
     public void delete(T t) {
