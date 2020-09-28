@@ -23,7 +23,9 @@ paths:
             $ref: '#/definitions/Board'
       responses:
         201:
-          description: Created
+          description: Created.
+          schema:
+            $ref: '#/definitions/Board'
     get:
       operationId: getAllBoards
       summary: Get list of boards.
@@ -32,8 +34,8 @@ paths:
       produces:
         - application/json
       responses:
-        201:
-          description: A list of Boards
+        200:
+          description: A list of Boards.
           schema:
             type: array
             items:
@@ -51,7 +53,7 @@ paths:
             $ref: '#/definitions/Board'
       responses:
         200:
-          description: Deleted
+          description: Deleted.
     put:
       operationId: editBoard
       summary: Edit board.
@@ -65,7 +67,9 @@ paths:
             $ref: '#/definitions/Board'
       responses:
         200:
-          description: Edited
+          description: Edited.
+          schema:
+            $ref: '#/definitions/Board'
 
   /columns:
     post:
@@ -82,6 +86,8 @@ paths:
       responses:
         201:
           description: Created.
+          schema:
+            $ref: '#/definitions/Column'
     get:
       operationId: getAllColumns
       summary: Get list of columns.
@@ -90,8 +96,8 @@ paths:
       produces:
         - application/json
       responses:
-        201:
-          description: A list of Columns
+        200:
+          description: A list of Columns.
           schema:
             type: array
             items:
@@ -124,6 +130,8 @@ paths:
       responses:
         200:
           description: Edited.
+          schema:
+            $ref: '#/definitions/Column'
 
   /tasks:
     post:
@@ -140,6 +148,8 @@ paths:
       responses:
         201:
           description: Created.
+          schema:
+            $ref: '#/definitions/Task'
     get:
       operationId: getAllTask
       summary: Get list of tasks.
@@ -148,8 +158,8 @@ paths:
       produces:
         - application/json
       responses:
-        201:
-          description: A list of Tasks
+        200:
+          description: A list of Tasks.
           schema:
             type: array
             items:
@@ -182,36 +192,44 @@ paths:
       responses:
         200:
           description: Edited.
+          schema:
+            $ref: '#/definitions/Task'
 
 definitions:
   Board:
     type: object
     required:
-      - boardId
+      - ID
     properties:
-      boardId:
+      ID:
         type: integer
       name:
         type: string
+
   Column:
     type: object
     required:
-      - columnId
+      - ID
     properties:
-      columnId:
+      ID:
         type: integer
       name:
         type: string
-      boardId:
-        type: integer
+      board:
+        schema:
+          $ref: '#/definitions/Board'
+
   Task:
     type: object
     required:
-      - taskId
+      - ID
     properties:
-      taskId:
+      ID:
         type: integer
-      name:
+      header:
         type: string
-      columnId:
-        type: integer
+      text:
+        type: string
+      column:
+        schema:
+          $ref: '#/definitions/Column'
