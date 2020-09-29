@@ -14,12 +14,19 @@ import java.util.Base64;
 @Slf4j
 @Service
 public class UserService extends com.kovaliv.services.Service<User> {
+    private final TokenService tokenService;
     private final UserRepo userRepo;
 
     @Autowired
-    public UserService(UserRepo userRepo, Repo<User> repo) {
+    public UserService(UserRepo userRepo, Repo<User> repo, TokenService tokenService) {
         super(repo);
         this.userRepo = userRepo;
+        this.tokenService = tokenService;
+    }
+
+    @CountTime
+    public User getByToken(String token) {
+        return getByLogin(tokenService.decode(token.substring("Bearer".length()).trim()));
     }
 
     @CountTime

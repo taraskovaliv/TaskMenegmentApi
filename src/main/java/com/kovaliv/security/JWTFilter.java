@@ -20,7 +20,7 @@ public class JWTFilter implements ContainerRequestFilter {
     private final TokenService tokenService;
 
     private static final String[] loginRequiredURLs = {
-            "/"
+            "/comment"
     };
 
     @Override
@@ -46,7 +46,7 @@ public class JWTFilter implements ContainerRequestFilter {
 
     private boolean isLoginRequired(String requestURL) {
         for (String loginRequiredURL : loginRequiredURLs) {
-            if (requestURL.equals(loginRequiredURL)) {
+            if (requestURL.contains(loginRequiredURL)) {
                 return true;
             }
         }
