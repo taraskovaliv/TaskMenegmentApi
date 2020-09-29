@@ -1,5 +1,6 @@
 package com.kovaliv.security.services;
 
+import com.kovaliv.aspect.CountTime;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
@@ -27,6 +28,7 @@ public class JWTService implements TokenService {
 
 
     @Override
+    @CountTime
     public String encode(String login) {
         Instant now = Instant.now();
         return Jwts.builder()
@@ -39,6 +41,7 @@ public class JWTService implements TokenService {
     }
 
     @Override
+    @CountTime
     public String decode(String token) {
         if (token.isEmpty()) {
             throw new NullPointerException("Token was empty");

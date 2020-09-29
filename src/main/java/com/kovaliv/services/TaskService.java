@@ -1,5 +1,6 @@
 package com.kovaliv.services;
 
+import com.kovaliv.aspect.CountTime;
 import com.kovaliv.models.Column;
 import com.kovaliv.models.Task;
 import com.kovaliv.repos.Repo;
@@ -17,6 +18,7 @@ public class TaskService extends Service<Task> {
         this.taskRepo = taskRepo;
     }
 
+    @CountTime
     public void moveTaskToColumn(Integer taskId, Integer columnId) {
         Task task = taskRepo.getById(Task.class, taskId);
         Column column = columnRepo.getById(Column.class, columnId);

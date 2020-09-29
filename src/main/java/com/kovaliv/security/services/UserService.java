@@ -1,5 +1,6 @@
 package com.kovaliv.security.services;
 
+import com.kovaliv.aspect.CountTime;
 import com.kovaliv.repos.Repo;
 import com.kovaliv.security.dtos.LoginDto;
 import com.kovaliv.security.models.User;
@@ -21,15 +22,18 @@ public class UserService extends com.kovaliv.services.Service<User> {
         this.userRepo = userRepo;
     }
 
+    @CountTime
     public User getByLogin(String login) {
         return userRepo.getByLogin(login);
     }
 
+    @CountTime
     public User save(User user) {
         user.setPassword(Base64.getEncoder().encodeToString(user.getPassword().getBytes()));
         return repo.save(user);
     }
 
+    @CountTime
     public boolean login(LoginDto loginDto) {
         User user = getByLogin(loginDto.getLogin());
         if (user == null) {
@@ -39,6 +43,7 @@ public class UserService extends com.kovaliv.services.Service<User> {
         return decodedPassword.equals(loginDto.getPassword());
     }
 
+    @CountTime
     public boolean signup(LoginDto loginDto) {
         if (getByLogin(loginDto.getLogin()) != null) {
             return false;
