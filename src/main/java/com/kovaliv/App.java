@@ -11,6 +11,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import javax.ws.rs.Path;
+import javax.ws.rs.ext.ExceptionMapper;
 
 @Slf4j
 public class App extends Application<Configuration> {
@@ -25,6 +26,11 @@ public class App extends Application<Configuration> {
 
         log.info("Adding resources");
         for (Object resource : context.getBeansWithAnnotation(Path.class).values()) {
+            log.info("Registered " + resource.getClass().getName() + " class");
+            e.jersey().register(resource);
+        }
+        for (Object resource : context.getBeansOfType(ExceptionMapper.class).values()) {
+            log.info("Registered " + resource.getClass().getName() + " class");
             e.jersey().register(resource);
         }
 
