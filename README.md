@@ -1,6 +1,10 @@
 # TaskMenegmentApi [![Build Status](https://travis-ci.com/taraskovaliv/TaskMenegmentApi.svg?branch=master)](https://travis-ci.com/taraskovaliv/TaskMenegmentApi)
 
 ## 1. Start the project locally
+#### Clone project using command:
+```
+git clone https://github.com/taraskovaliv/TaskMenegmentApi.git
+```
 ### Way 1   
 #### 1.1. Required to install
 - [x] [MariaDB](https://mariadb.org/download/) 
