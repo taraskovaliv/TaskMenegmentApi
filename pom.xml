@@ -8,11 +8,16 @@
     <artifactId>TaskMenegmentApi</artifactId>
     <version>1.0-SNAPSHOT</version>
     <properties>
+        <mariadbtestconteiner.version>1.14.3</mariadbtestconteiner.version>
+        <jackson.datatype.version>2.11.2</jackson.datatype.version>
+        <swaggercodegen.version>2.4.15</swaggercodegen.version>
+        <hibernate.version>5.4.21.Final</hibernate.version>
         <dropwizard.version>2.0.13</dropwizard.version>
         <spring.version>5.2.8.RELEASE</spring.version>
-        <hibernate.version>5.4.21.Final</hibernate.version>
         <liquibase.version>3.6.3</liquibase.version>
+        <mockito.version>2.23.0</mockito.version>
         <mariadb.version>2.1.2</mariadb.version>
+        <aspectj.version>1.9.6</aspectj.version>
         <lombok.version>1.18.12</lombok.version>
         <junit.version>5.5.2</junit.version>
         <jwt.version>0.11.2</jwt.version>
@@ -118,24 +123,29 @@
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
-            <version>2.23.0</version>
+            <version>${mockito.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.testcontainers</groupId>
             <artifactId>mariadb</artifactId>
-            <version>1.14.3</version>
+            <version>${mariadbtestconteiner.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjrt</artifactId>
-            <version>1.9.6</version>
+            <version>${aspectj.version}</version>
         </dependency>
         <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjweaver</artifactId>
-            <version>1.9.6</version>
+            <version>${aspectj.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+            <version>${jackson.datatype.version}</version>
         </dependency>
     </dependencies>
 
@@ -195,13 +205,17 @@
             <plugin>
                 <groupId>io.swagger</groupId>
                 <artifactId>swagger-codegen-maven-plugin</artifactId>
-                <version>2.4.15</version>
+                <version>${swaggercodegen.version}</version>
                 <configuration>
+                    <templateDirectory>${project.basedir}/src/main/resources/templates</templateDirectory>
                     <inputSpec>${project.basedir}/src/main/resources/swagger.yaml</inputSpec>
-                    <output>${project.basedir}/../swagger</output>
+                    <output>${project.basedir}</output>
                     <apiPackage>com.kovaliv.api</apiPackage>
+                    <generateApiTests>false</generateApiTests>
+                    <generateModelTests>false</generateModelTests>
                     <modelPackage>com.kovaliv.api.model</modelPackage>
-
+                    <generateSupportingFiles>false</generateSupportingFiles>
+                    <generateModelDocumentation>false</generateModelDocumentation>
                     <configOptions>
                         <sourceFolder>src/main/java</sourceFolder>
                     </configOptions>

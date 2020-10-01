@@ -1,6 +1,8 @@
 FROM maven:3.5-jdk-11
 COPY . .
-RUN mvn clean package
+RUN mvn clean
+RUN mvn swagger-codegen:generate
+RUN mvn package
 
 EXPOSE 8080
 

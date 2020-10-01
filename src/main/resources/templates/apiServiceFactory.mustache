@@ -1,0 +1,15 @@
+package {{package}}.factories;
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
+import {{package}}.{{classname}}Service;
+
+@Component
+@RequiredArgsConstructor
+public class {{classname}}ServiceFactory {
+private final {{classname}}Service service;
+
+public {{classname}}Service get{{classname}}() {
+return service;
+}
+}
