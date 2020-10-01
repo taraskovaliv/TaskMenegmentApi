@@ -14,8 +14,6 @@ before_install:
   - sudo mv docker-compose /usr/local/bin
 
 script:
-  - mvn swagger-codegen:generate
-  - mvn clean package -X -e
   - docker-compose up -d --build
 
 after_script:
