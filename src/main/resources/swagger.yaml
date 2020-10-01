@@ -203,9 +203,9 @@ definitions:
   Board:
     type: object
     required:
-      - ID
+      - boardId
     properties:
-      ID:
+      boardId:
         type: integer
       name:
         type: string
@@ -213,9 +213,9 @@ definitions:
   Column:
     type: object
     required:
-      - ID
+      - columnId
     properties:
-      ID:
+      columnId:
         type: integer
       name:
         type: string
@@ -226,9 +226,9 @@ definitions:
   Task:
     type: object
     required:
-      - ID
+      - taskId
     properties:
-      ID:
+      taskId:
         type: integer
       header:
         type: string
