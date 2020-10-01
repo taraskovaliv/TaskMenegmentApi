@@ -12,6 +12,7 @@
         <jackson.datatype.version>2.11.2</jackson.datatype.version>
         <swaggercodegen.version>2.4.15</swaggercodegen.version>
         <hibernate.version>5.4.21.Final</hibernate.version>
+        <modelmapper.version>2.3.8</modelmapper.version>
         <dropwizard.version>2.0.13</dropwizard.version>
         <spring.version>5.2.8.RELEASE</spring.version>
         <liquibase.version>3.6.3</liquibase.version>
@@ -146,6 +147,16 @@
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-jsr310</artifactId>
             <version>${jackson.datatype.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.swagger</groupId>
+            <artifactId>swagger-codegen-maven-plugin</artifactId>
+            <version>${swaggercodegen.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.modelmapper</groupId>
+            <artifactId>modelmapper</artifactId>
+            <version>${modelmapper.version}</version>
         </dependency>
     </dependencies>
 
