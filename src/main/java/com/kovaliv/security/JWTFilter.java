@@ -11,6 +11,7 @@ import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.Provider;
+import java.util.Arrays;
 
 @Slf4j
 @Provider
@@ -35,7 +36,7 @@ public class JWTFilter implements ContainerRequestFilter {
                 token = token.substring("Bearer".length()).trim();
                 tokenService.decode(token);
             } catch (Exception e) {
-                e.printStackTrace();
+                log.error(Arrays.toString(e.getStackTrace()));
                 context.abortWith(Response.status(Response.Status.UNAUTHORIZED)
                         .type(MediaType.TEXT_PLAIN_TYPE)
                         .entity("Unauthorized")
