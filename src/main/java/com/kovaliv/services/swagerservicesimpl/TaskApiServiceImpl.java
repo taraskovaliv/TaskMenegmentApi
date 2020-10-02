@@ -1,24 +1,26 @@
 package com.kovaliv.services.swagerservicesimpl;
 
-import com.kovaliv.api.TasksApiService;
+import com.kovaliv.api.TaskApiService;
 import com.kovaliv.api.model.Task;
+import com.kovaliv.services.TaskService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class TaskApiServiceImpl extends TasksApiService {
-    private final com.kovaliv.services.Service<com.kovaliv.models.Task> taskService;
+public class TaskApiServiceImpl extends TaskApiService {
+    private final TaskService taskService;
     private final ModelMapper modelMapper;
 
     @Override
     public Response createTask(Task task, SecurityContext securityContext) {
-        return Response.ok(modelMapper.map(
+        return Response.status(Response.Status.CREATED).entity(modelMapper.map(
                 taskService.save(modelMapper.map(task, com.kovaliv.models.Task.class)),
                 Task.class)
         ).build();
@@ -37,11 +39,16 @@ public class TaskApiServiceImpl extends TasksApiService {
     }
 
     @Override
-    public Response getAllTask(SecurityContext securityContext) {
-        return Response.ok(taskService.getAll(com.kovaliv.models.Task.class)
-                .stream()
-                .map(t -> modelMapper.map(t, Task.class))
-                .collect(Collectors.toList())
+    public Response getTaskById(@Min(1) Integer taskId, SecurityContext securityContext) {
+        return Response.ok(modelMapper.map(
+                taskService.getById(com.kovaliv.models.Task.class, taskId),
+                Task.class)
         ).build();
+    }
+
+    @Override
+    public Response moveTaskToColumn(@NotNull Integer taskId, @NotNull Integer columnId, SecurityContext securityContext) {
+        taskService.moveTaskToColumn(taskId, columnId);
+        return Response.ok().build();
     }
 }

@@ -13,15 +13,43 @@ produces:
   - "application/json"
 
 paths:
-  /boards:
+  /:
+    get:
+      operationId: get
+      summary: Api worked.
+      responses:
+        200:
+          description: Api worked good.
+
+  /board:
+    get:
+      operationId: getBoardById
+      summary: Getted Board by it Id.
+      parameters:
+        - in: path
+          name: boardId
+          required: true
+          type: integer
+          minimum: 1
+          description: The ID of the Board to return.
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Getted Board.
+          schema:
+            $ref: '#/definitions/Board'
     post:
       operationId: createBoard
       summary: Creates a new board.
       consumes:
         - application/json
+      produces:
+        - application/json
       parameters:
         - in: body
           name: board
+          required: true
           description: The board to create.
           schema:
             $ref: '#/definitions/Board'
@@ -30,28 +58,15 @@ paths:
           description: Created.
           schema:
             $ref: '#/definitions/Board'
-    get:
-      operationId: getAllBoards
-      summary: Get list of boards.
-      consumes:
-        - application/json
-      produces:
-        - application/json
-      responses:
-        200:
-          description: A list of Boards.
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/Board'
     delete:
       operationId: deleteBoard
       summary: Delete board.
-      produces:
+      consumes:
         - application/json
       parameters:
         - in: body
           name: board
+          required: true
           description: The board to delete.
           schema:
             $ref: '#/definitions/Board'
@@ -61,11 +76,14 @@ paths:
     put:
       operationId: editBoard
       summary: Edit board.
+      consumes:
+        - application/json
       produces:
         - application/json
       parameters:
         - in: body
           name: board
+          required: true
           description: The board with changes.
           schema:
             $ref: '#/definitions/Board'
@@ -75,15 +93,49 @@ paths:
           schema:
             $ref: '#/definitions/Board'
 
-  /columns:
+  /boards:
+    get:
+      operationId: getAllBoards
+      summary: Get list of boards.
+      produces:
+        - application/json
+      responses:
+        200:
+          description: A list of Boards.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Board'
+
+  /column:
+    get:
+      operationId: getColumnById
+      summary: Getted Column by it Id.
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: columnId
+          required: true
+          type: integer
+          minimum: 1
+          description: The ID of the Column to return.
+      responses:
+        200:
+          description: Getted Column.
+          schema:
+            $ref: '#/definitions/Column'
     post:
       operationId: createColumn
       summary: Creates a new column.
       consumes:
         - application/json
+      produces:
+        - application/json
       parameters:
         - in: body
           name: column
+          required: true
           description: The column to create.
           schema:
             $ref: '#/definitions/Column'
@@ -92,28 +144,15 @@ paths:
           description: Created.
           schema:
             $ref: '#/definitions/Column'
-    get:
-      operationId: getAllColumns
-      summary: Get list of columns.
-      consumes:
-        - application/json
-      produces:
-        - application/json
-      responses:
-        200:
-          description: A list of Columns.
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/Column'
     delete:
       operationId: deleteColumn
       summary: Delete column.
-      produces:
+      consumes:
         - application/json
       parameters:
         - in: body
           name: column
+          required: true
           description: The column to delete.
           schema:
             $ref: '#/definitions/Column'
@@ -123,11 +162,14 @@ paths:
     put:
       operationId: editColumn
       summary: Edit column.
+      consumes:
+        - application/json
       produces:
         - application/json
       parameters:
         - in: body
           name: column
+          required: true
           description: The column with changes.
           schema:
             $ref: '#/definitions/Column'
@@ -137,15 +179,47 @@ paths:
           schema:
             $ref: '#/definitions/Column'
 
-  /tasks:
+  /columns:
+    get:
+      operationId: getAllColumns
+      summary: Get list of columns.
+      produces:
+        - application/json
+      responses:
+        200:
+          description: A list of Columns.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Column'
+
+  /task:
+    get:
+      operationId: getTaskById
+      summary: Getted Task by it Id.
+      parameters:
+        - in: path
+          name: taskId
+          required: true
+          type: integer
+          minimum: 1
+          description: The ID of the Task to return.
+      responses:
+        200:
+          description: Getted Task.
+          schema:
+            $ref: '#/definitions/Task'
     post:
       operationId: createTask
       summary: Creates a new task.
       consumes:
         - application/json
+      produces:
+        - application/json
       parameters:
         - in: body
           name: task
+          required: true
           description: The task to create.
           schema:
             $ref: '#/definitions/Task'
@@ -154,28 +228,15 @@ paths:
           description: Created.
           schema:
             $ref: '#/definitions/Task'
-    get:
-      operationId: getAllTask
-      summary: Get list of tasks.
-      consumes:
-        - application/json
-      produces:
-        - application/json
-      responses:
-        200:
-          description: A list of Tasks.
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/Task'
     delete:
       operationId: deleteTask
       summary: Delete task.
-      produces:
+      consumes:
         - application/json
       parameters:
         - in: body
           name: task
+          required: true
           description: The task to delete.
           schema:
             $ref: '#/definitions/Task'
@@ -185,11 +246,14 @@ paths:
     put:
       operationId: editTask
       summary: Edit task.
+      consumes:
+        - application/json
       produces:
         - application/json
       parameters:
         - in: body
           name: task
+          required: true
           description: The task with changes.
           schema:
             $ref: '#/definitions/Task'
@@ -198,6 +262,41 @@ paths:
           description: Edited.
           schema:
             $ref: '#/definitions/Task'
+    patch:
+      operationId: moveTaskToColumn
+      summary: move Task to Column with id
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: query
+          name: taskId
+          required: true
+          description: Id of tsk to move.
+          type: integer
+        - in: query
+          name: columnId
+          required: true
+          description: Id of column to move.
+          type: integer
+      responses:
+        200:
+          description: Moved.
+
+  /tasks:
+    get:
+      operationId: getAllTask
+      summary: Get list of tasks.
+      produces:
+        - application/json
+      responses:
+        200:
+          description: A list of Tasks.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Task'
 
 definitions:
   Board:

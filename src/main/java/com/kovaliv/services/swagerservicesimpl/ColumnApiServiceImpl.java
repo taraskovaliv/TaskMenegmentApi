@@ -1,24 +1,24 @@
 package com.kovaliv.services.swagerservicesimpl;
 
-import com.kovaliv.api.ColumnsApiService;
+import com.kovaliv.api.ColumnApiService;
 import com.kovaliv.api.model.Column;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import javax.validation.constraints.Min;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class ColumnApiServiceImpl extends ColumnsApiService {
+public class ColumnApiServiceImpl extends ColumnApiService {
     private final com.kovaliv.services.Service<com.kovaliv.models.Column> columnService;
     private final ModelMapper modelMapper;
 
     @Override
     public Response createColumn(Column column, SecurityContext securityContext) {
-        return Response.ok(modelMapper.map(
+        return Response.status(Response.Status.CREATED).entity(modelMapper.map(
                 columnService.save(modelMapper.map(column, com.kovaliv.models.Column.class)),
                 Column.class)
         ).build();
@@ -37,11 +37,10 @@ public class ColumnApiServiceImpl extends ColumnsApiService {
     }
 
     @Override
-    public Response getAllColumns(SecurityContext securityContext) {
-        return Response.ok(columnService.getAll(com.kovaliv.models.Column.class)
-                .stream()
-                .map(c -> modelMapper.map(c, Column.class))
-                .collect(Collectors.toList())
+    public Response getColumnById(@Min(1) Integer columnId, SecurityContext securityContext) {
+        return Response.ok(modelMapper.map(
+                columnService.getById(com.kovaliv.models.Column.class, columnId),
+                Column.class)
         ).build();
     }
 }
