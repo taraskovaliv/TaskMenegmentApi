@@ -146,6 +146,22 @@
             <artifactId>modelmapper</artifactId>
             <version>${modelmapper.version}</version>
         </dependency>
+        <dependency>
+            <groupId>io.swagger</groupId>
+            <artifactId>swagger-jersey2-jaxrs</artifactId>
+            <version>${swagger.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.reflections</groupId>
+            <artifactId>reflections</artifactId>
+            <version>${reflections.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.smoketurner</groupId>
+            <artifactId>dropwizard-swagger</artifactId>
+            <version>${dropwizard.swagger.version}</version>
+        </dependency>
     </dependencies>
 
     <build>
