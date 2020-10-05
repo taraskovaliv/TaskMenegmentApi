@@ -18,11 +18,10 @@ import java.util.Arrays;
 @Component
 @RequiredArgsConstructor
 public class JWTFilter implements ContainerRequestFilter {
-    private final TokenService tokenService;
-
     private static final String[] loginRequiredURLs = {
             "/comment"
     };
+    private final TokenService tokenService;
 
     @Override
     public void filter(ContainerRequestContext context) {
