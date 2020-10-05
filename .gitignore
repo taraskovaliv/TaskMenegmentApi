@@ -1,7 +1,8 @@
 .idea
 .swagger-codegen
 target
-src/main/java/com/kovaliv/api
 
 TaskMenegmentApi.iml
 dependency-reduced-pom.xml
+/api/api.iml
+/api/src/main/java/com/kovaliv/api/

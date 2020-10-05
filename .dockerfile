@@ -10,4 +10,4 @@ RUN mvn package
 
 EXPOSE 8080
 
-ENTRYPOINT ["java","-jar","/target/TaskMenegmentApi-1.0-SNAPSHOT.jar", "server", "/config.yml"]
+ENTRYPOINT ["java","-jar","api/target/api-1.0-SNAPSHOT.jar", "server", "config.yml"]
